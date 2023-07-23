@@ -12,7 +12,8 @@ namespace DefaultNamespace
         {
             foreach (var entrance in entrancePositions)
             {
-                if (entity.Position - Vector3Int.RoundToInt(transform.position) == entrance)
+
+                if (entity.Position == transform.localToWorldMatrix.MultiplyPoint3x4(entrance))
                     return true;
             }
 
@@ -24,7 +25,7 @@ namespace DefaultNamespace
             foreach (var entrance in entrancePositions)
             {
                 Gizmos.color = gizmoColor;
-                Gizmos.DrawCube(Vector3Int.RoundToInt(transform.position) + entrance, Vector3.one);
+                Gizmos.DrawCube(transform.localToWorldMatrix.MultiplyPoint3x4(entrance), Vector3.one);
             }
         }
     }
