@@ -38,9 +38,11 @@ namespace DefaultNamespace
                 _movementQueue.Enqueue(Vector3Int.right);
         }
 
-        private void Update()
+        protected override void Update()
         {
-            if (_movementQueue.TryDequeue(out Vector3Int offset) && this.IsGrounded(out _))
+            base.Update();
+
+            if (_movementQueue.TryDequeue(out Vector3Int offset) && this.IsGrounded())
             {
                 this.Slide(offset);
             }
