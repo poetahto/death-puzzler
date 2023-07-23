@@ -1,14 +1,20 @@
-﻿using System;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class PuzzleWorldEntity : MonoBehaviour
     {
-        [SerializeField] private Transform view;
-        [SerializeField] private Transform logic;
-        [SerializeField] private float speed = 15f;
+        [SerializeField]
+        [Tooltip("A transform with smoothing applied, and will be moved every frame.")]
+        private Transform view;
+
+        [SerializeField]
+        [Tooltip("A transform with no smoothing applied, and is always at a snapped position.")]
+        private Transform logic;
+
+        [SerializeField]
+        [Tooltip("How quickly the view should move to follow the logic.")]
+        private float speed = 15f;
 
         public Vector3Int Position
         {
@@ -17,9 +23,10 @@ namespace DefaultNamespace
         }
 
         public PuzzleWorldGrid World { get; private set; }
-
         public Vector3 TargetViewPosition { get; set; }
         public Quaternion TargetViewRotation { get; set; }
+
+        // === Logic ===
 
         private void Awake()
         {
@@ -34,92 +41,94 @@ namespace DefaultNamespace
             view.rotation = Quaternion.Lerp(view.rotation, TargetViewRotation, t);
         }
 
-        public virtual void PuzzleCreate(PuzzleWorldGrid world)
+        public void PuzzleCreate(PuzzleWorldGrid world)
         {
             World = world;
         }
 
-        public virtual void PuzzleDestroy()
+        public void PuzzleDestroy()
         {
             World = null;
         }
-    }
 
-    public static class PuzzleExtensions
-    {
-        public static PuzzleWorldEntity GetOffset(this PuzzleWorldEntity entity, Vector3Int offset)
-            => entity.World.Get(entity.Position + offset);
+        // === Actions ===
 
-        public static PuzzleWorldEntity GetFront(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.forward);
-        public static PuzzleWorldEntity GetBack(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.back);
-        public static PuzzleWorldEntity GetAbove(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.up);
-        public static PuzzleWorldEntity GetBelow(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.down);
-        public static PuzzleWorldEntity GetLeft(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.left);
-        public static PuzzleWorldEntity GetRight(this PuzzleWorldEntity entity) => entity.GetOffset(Vector3Int.right);
+        public void Move(Vector3Int position) => World.Move(this, position);
 
-        public static void Move(this PuzzleWorldEntity entity, Vector3Int position) => entity.World.Move(entity, position);
-
-        public static bool IsGrounded(this PuzzleWorldEntity entity)
+        public void Slide(Vector3Int offset)
         {
-            var below = entity.GetBelow();
-            return below.TryGetComponent(out Ground _) || below.TryGetComponent(out Stairs _);
-        }
+            PuzzleWorldEntity targetEntity = GetNeighbor(offset);
 
-        public static bool IsTraversable(this PuzzleWorldEntity entity)
-        {
-            return entity.TryGetComponent(out Traversable _);
-        }
-
-        public static void Slide(this PuzzleWorldEntity entity, Vector3Int offset)
-        {
-            PuzzleWorldEntity targetEntity = entity.GetOffset(offset);
-
-            // Stepping up onto stairs.
+            // Stepping UP onto stairs.
             if (targetEntity.TryGetComponent(out Stairs stairs))
             {
-                if (stairs.CanEntityEnter(entity) && targetEntity.GetAbove().IsTraversable())
+                if (stairs.CanEntityEnter(this) && targetEntity.GetAbove().IsTraversable())
                 {
-                    entity.Move(targetEntity.Position + Vector3Int.up);
+                    Move(targetEntity.Position + Vector3Int.up);
                 }
             }
+            // Stepping DOWN onto stairs.
             else if (targetEntity.GetBelow().TryGetComponent(out stairs))
             {
-                if (stairs.CanEntityEnter(entity) && targetEntity.IsTraversable())
+                if (stairs.CanEntityEnter(this) && targetEntity.IsTraversable())
                 {
-                    entity.Move(targetEntity.Position);
+                    Move(targetEntity.Position);
                 }
             }
             else if (targetEntity.IsTraversable())
             {
-                // We are standing on stairs, walking off onto an open space.
-                if (entity.GetBelow().TryGetComponent(out stairs))
+                if (GetBelow().TryGetComponent(out stairs))
                 {
+                    // Stepping DOWN off of stairs.
                     if (stairs.CanEntityEnter(targetEntity.GetBelow()))
                     {
-                        entity.Move(targetEntity.Position + Vector3Int.down);
+                        Move(targetEntity.Position + Vector3Int.down);
                     }
+                    // Stepping UP off of stairs.
                     else if (stairs.CanEntityEnter(targetEntity))
                     {
-                        entity.Move(targetEntity.Position);
+                        Move(targetEntity.Position);
                     }
                 }
                 else
                 {
-                    entity.Move(targetEntity.Position);
+                    // Normal movement.
+                    Move(targetEntity.Position);
                 }
             }
 
             // No matter how we slide, always update our view transform to look correct.
-            if (entity.GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
+            if (GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
             {
-                entity.TargetViewPosition = slideTransform.Position;
-                entity.TargetViewRotation = slideTransform.Rotation;
+                TargetViewPosition = slideTransform.Position;
+                TargetViewRotation = slideTransform.Rotation;
             }
             else
             {
-                entity.TargetViewPosition = entity.Position;
-                entity.TargetViewRotation = Quaternion.identity;
+                TargetViewPosition = Position;
+                TargetViewRotation = Quaternion.identity;
             }
+        }
+
+        // === Queries ===
+
+        public PuzzleWorldEntity GetNeighbor(Vector3Int offset) => World.Get(Position + offset);
+        public PuzzleWorldEntity GetFront() => GetNeighbor(Vector3Int.forward);
+        public PuzzleWorldEntity GetBack() => GetNeighbor(Vector3Int.back);
+        public PuzzleWorldEntity GetAbove() => GetNeighbor(Vector3Int.up);
+        public PuzzleWorldEntity GetBelow() => GetNeighbor(Vector3Int.down);
+        public PuzzleWorldEntity GetLeft() => GetNeighbor(Vector3Int.left);
+        public PuzzleWorldEntity GetRight() => GetNeighbor(Vector3Int.right);
+
+        public bool IsGrounded()
+        {
+            var below = GetBelow();
+            return below.TryGetComponent(out Ground _) || below.TryGetComponent(out Stairs _);
+        }
+
+        public bool IsTraversable()
+        {
+            return TryGetComponent(out Traversable _);
         }
     }
 }

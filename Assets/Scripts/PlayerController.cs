@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-    public class PlayerController : PuzzleWorldEntity
+    public class PlayerController : EntityBehaviour
     {
         private Queue<Vector3Int> _movementQueue;
         private PuzzleWorldGrid _world;
@@ -13,6 +13,16 @@ namespace DefaultNamespace
         {
             _movementQueue = new Queue<Vector3Int>();
         }
+
+        protected void Update()
+        {
+            if (_movementQueue.TryDequeue(out Vector3Int offset) && Entity.IsGrounded())
+            {
+                Entity.Slide(offset);
+            }
+        }
+
+        // === Input ===
 
         public void HandleUp(InputAction.CallbackContext context)
         {
@@ -36,16 +46,6 @@ namespace DefaultNamespace
         {
             if (context.started)
                 _movementQueue.Enqueue(Vector3Int.right);
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            if (_movementQueue.TryDequeue(out Vector3Int offset) && this.IsGrounded())
-            {
-                this.Slide(offset);
-            }
         }
     }
 }

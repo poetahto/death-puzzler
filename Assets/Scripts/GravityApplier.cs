@@ -2,23 +2,16 @@
 
 namespace DefaultNamespace
 {
-    [RequireComponent(typeof(PuzzleWorldEntity))]
-    public class GravityApplier : MonoBehaviour
+    public class GravityApplier : EntityBehaviour
     {
         [SerializeField] private float dropDuration = 0.5f;
 
-        private PuzzleWorldEntity _entity;
         private float _cooldown;
         private bool _wasGrounded;
 
-        private void Start()
-        {
-            _entity = GetComponent<PuzzleWorldEntity>();
-        }
-
         private void Update()
         {
-            bool isGrounded = _entity.IsGrounded();
+            bool isGrounded = Entity.IsGrounded();
 
             if (!isGrounded && _wasGrounded)
             {
@@ -28,9 +21,9 @@ namespace DefaultNamespace
 
             if (!isGrounded && _cooldown <= 0)
             {
-                _entity.Move(_entity.Position + Vector3Int.down);
-                _entity.TargetViewPosition = _entity.Position;
-                _entity.TargetViewRotation = Quaternion.identity;
+                Entity.Move(Entity.Position + Vector3Int.down);
+                Entity.TargetViewPosition = Entity.Position;
+                Entity.TargetViewRotation = Quaternion.identity;
                 _cooldown = dropDuration;
             }
             else

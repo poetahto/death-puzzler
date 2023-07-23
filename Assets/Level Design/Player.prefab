@@ -180,6 +180,8 @@ GameObject:
   - component: {fileID: 472621349866329518}
   - component: {fileID: 8411292687914574127}
   - component: {fileID: 4995719151743782281}
+  - component: {fileID: 9041436587834504844}
+  - component: {fileID: 3417033355911396719}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -216,9 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52147030238f41458e87871e035bfb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 6700232796499104230}
-  logic: {fileID: 6967378795985506566}
-  speed: 15
 --- !u!114 &4995719151743782281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,19 +244,67 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8411292687914574127}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlayerController, Assembly-CSharp
+        m_MethodName: HandleUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e549fb86-797d-47d0-ab3d-2f10cab5f9f1
     m_ActionName: Default/Up[/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8411292687914574127}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlayerController, Assembly-CSharp
+        m_MethodName: HandleDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8cbc8e5e-3f08-4475-b65e-d9b4c998a971
     m_ActionName: Default/Down[/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8411292687914574127}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlayerController, Assembly-CSharp
+        m_MethodName: HandleLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: bc0bf456-3ddf-4638-ba53-1d1d26b44cc3
     m_ActionName: Default/Left[/Keyboard/a]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8411292687914574127}
+        m_TargetAssemblyTypeName: DefaultNamespace.PlayerController, Assembly-CSharp
+        m_MethodName: HandleRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 072a46cd-266f-4567-8efe-19b987996c5d
     m_ActionName: Default/Right[/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
@@ -265,6 +312,34 @@ MonoBehaviour:
   m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &9041436587834504844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524543024331093653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604737b7e56448e4b7920b436559f65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 6700232796499104230}
+  logic: {fileID: 6967378795985506566}
+  speed: 15
+--- !u!114 &3417033355911396719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524543024331093653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d283fbdb03b84e599f8826970c17cfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDuration: 0.2
 --- !u!1001 &3580870234600684939
 PrefabInstance:
   m_ObjectHideFlags: 0
