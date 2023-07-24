@@ -21,12 +21,12 @@ namespace DefaultNamespace
 
     public static class LivingEntityExtensions
     {
-        public static bool IsAlive(this PuzzleEntity entity)
+        public static bool IsAlive(this Entity entity)
         {
             return entity.TryGetComponent(out LivingEntity livingEntity) && livingEntity.IsAlive;
         }
 
-        public static bool TryKill(this PuzzleEntity entity)
+        public static bool TryKill(this Entity entity)
         {
             if (entity.TryGetComponent(out LivingEntity livingEntity))
             {

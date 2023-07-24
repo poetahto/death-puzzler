@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace DefaultNamespace
 {
-    public sealed class PuzzleEntity : MonoBehaviour
+    public sealed class Entity : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("A transform with smoothing applied, and will be moved every frame.")]
@@ -46,13 +46,6 @@ namespace DefaultNamespace
         {
             var world = FindAnyObjectByType<PuzzleWorldGridContainer>().PuzzleWorld;
             world?.Set(Position, this);
-            if (!name.Contains("air", StringComparison.InvariantCultureIgnoreCase))
-                print($"{name} loaded world: {World != null}");
-        }
-
-        private void OnDestroy()
-        {
-            World?.Delete(Position);
         }
 
         private void Update()
@@ -69,8 +62,6 @@ namespace DefaultNamespace
 
         public void PuzzleDestroy()
         {
-            if (!name.Contains("Air", StringComparison.InvariantCultureIgnoreCase))
-                print($"destroy {name}");
             World = null;
             enabled = false;
         }
@@ -81,7 +72,7 @@ namespace DefaultNamespace
 
         public void Slide(Vector3Int offset)
         {
-            PuzzleEntity targetEntity = GetNeighbor(offset);
+            Entity targetEntity = GetNeighbor(offset);
             Vector3Int previousPosition = Position;
 
             // Stepping UP onto stairs.
@@ -142,13 +133,13 @@ namespace DefaultNamespace
 
         // === Queries ===
 
-        public PuzzleEntity GetNeighbor(Vector3Int offset) => World.Get(Position + offset);
-        public PuzzleEntity GetFront() => GetNeighbor(Vector3Int.forward);
-        public PuzzleEntity GetBack() => GetNeighbor(Vector3Int.back);
-        public PuzzleEntity GetAbove() => GetNeighbor(Vector3Int.up);
-        public PuzzleEntity GetBelow() => GetNeighbor(Vector3Int.down);
-        public PuzzleEntity GetLeft() => GetNeighbor(Vector3Int.left);
-        public PuzzleEntity GetRight() => GetNeighbor(Vector3Int.right);
+        public Entity GetNeighbor(Vector3Int offset) => World.Get(Position + offset);
+        public Entity GetFront() => GetNeighbor(Vector3Int.forward);
+        public Entity GetBack() => GetNeighbor(Vector3Int.back);
+        public Entity GetAbove() => GetNeighbor(Vector3Int.up);
+        public Entity GetBelow() => GetNeighbor(Vector3Int.down);
+        public Entity GetLeft() => GetNeighbor(Vector3Int.left);
+        public Entity GetRight() => GetNeighbor(Vector3Int.right);
 
         public bool IsGrounded()
         {

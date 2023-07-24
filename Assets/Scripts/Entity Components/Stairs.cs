@@ -8,7 +8,7 @@ namespace DefaultNamespace
         [SerializeField] private Vector3Int[] entrancePositions = Array.Empty<Vector3Int>();
         [SerializeField] private Color gizmoColor = Color.red;
 
-        public bool CanEntityEnter(PuzzleEntity entity)
+        public bool CanEntityEnter(Entity entity)
         {
             foreach (var entrance in entrancePositions)
             {

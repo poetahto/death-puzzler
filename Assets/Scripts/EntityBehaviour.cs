@@ -2,14 +2,14 @@
 
 namespace DefaultNamespace
 {
-    [RequireComponent(typeof(PuzzleEntity))]
+    [RequireComponent(typeof(Entity))]
     public abstract class EntityBehaviour : MonoBehaviour
     {
-        public PuzzleEntity Entity { get; private set; }
+        public Entity Entity { get; private set; }
 
         private void Awake()
         {
-            Entity = GetComponent<PuzzleEntity>();
+            Entity = GetComponent<Entity>();
         }
     }
 }

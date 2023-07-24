@@ -5,7 +5,7 @@ namespace DefaultNamespace
     public class PuzzleWorldGridContainer : MonoBehaviour
     {
         [SerializeField] private Vector3Int size;
-        [SerializeField] private PuzzleEntity defaultEntityPrefab;
+        [SerializeField] private Entity defaultEntityPrefab;
 
         public Vector3Int Size => size;
         public PuzzleWorldGrid PuzzleWorld { get; private set; }

@@ -4,14 +4,21 @@ using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-    public class PlayerController : MonoBehaviour
+    public class InputController : MonoBehaviour
     {
         private Queue<Vector3Int> _movementQueue;
         private PuzzleWorldGrid _world;
+        private int _maxQueue;
 
-        private void Start()
+        private void Awake()
         {
-            _movementQueue = new Queue<Vector3Int>();
+            _maxQueue = 10;
+            _movementQueue = new Queue<Vector3Int>(_maxQueue);
+        }
+
+        private void OnEnable()
+        {
+            _movementQueue.Clear();
         }
 
         protected void Update()
@@ -27,25 +34,25 @@ namespace DefaultNamespace
 
         public void HandleUp(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && _movementQueue.Count <= _maxQueue)
                 _movementQueue.Enqueue(Vector3Int.forward);
         }
 
         public void HandleDown(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && _movementQueue.Count <= _maxQueue)
                 _movementQueue.Enqueue(Vector3Int.back);
         }
 
         public void HandleLeft(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && _movementQueue.Count <= _maxQueue)
                 _movementQueue.Enqueue(Vector3Int.left);
         }
 
         public void HandleRight(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && _movementQueue.Count <= _maxQueue)
                 _movementQueue.Enqueue(Vector3Int.right);
         }
     }
