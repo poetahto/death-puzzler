@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace.UI
 {
@@ -7,8 +6,7 @@ namespace DefaultNamespace.UI
     {
         public void Run()
         {
-            // todo: transitions
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            FindAnyObjectByType<GameplayController>().Restart();
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Puzzle Template
   m_EditorClassIdentifier: 
-  templateScene: {fileID: 102900000, guid: 4a9a344be5f8b344b928d1dafcf25250, type: 3}
+  templateScene: {fileID: 102900000, guid: 1a6ff5bd71f91ac43b14d48581584e88, type: 3}
   templateName: Puzzle Template
   description: 
   preview: {fileID: 0}
@@ -35,17 +35,27 @@ MonoBehaviour:
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: 40265a896a0f341bb956e90c59025a29, type: 3}
     instantiationMode: 1
+  - dependency: {fileID: 2100000, guid: 444f986dcfd406b45a1703bc5a8c8a1a, type: 2}
+    instantiationMode: 0
   - dependency: {fileID: 8079044136034582339, guid: 9889fa63f502e9f46931b5ef34c5ba28, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: 133a63ea9749b1243ad11590b9cb5b4a, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 8524543024331093653, guid: 13f485e1e2f8f9848bdc5f932bf983c5, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 3570872813417952941, guid: adb7ac2d39983794da7cafe91557c019, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
     instantiationMode: 1
+  - dependency: {fileID: 3985881997959130179, guid: 69016a490a773fa42a119a48385874d0, type: 3}
+    instantiationMode: 0
   - dependency: {fileID: 2100000, guid: 1f435d41d5fdd5c4c9335563a443912e, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 9261136628396441, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2800000, guid: 5f2a108eb023faf43a809979fd3d38f2, type: 3}
     instantiationMode: 1
   - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     instantiationMode: 1

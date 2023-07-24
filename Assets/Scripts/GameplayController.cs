@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace DefaultNamespace
@@ -86,7 +86,10 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            TransitionTo(hatchingState);
+            if (FindObjectsByType<Egg>(FindObjectsSortMode.None).Length > 0)
+                TransitionToHatching();
+
+            else TransitionToPlaying();
         }
 
         public void TransitionTo(State state)
@@ -100,5 +103,10 @@ namespace DefaultNamespace
         public void TransitionToVictory() => TransitionTo(victoryState);
         public void TransitionToPlaying() => TransitionTo(playingState);
         public void TransitionToHatching() => TransitionTo(hatchingState);
+
+        public void Restart()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
