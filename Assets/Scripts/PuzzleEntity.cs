@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace DefaultNamespace
 {
-    public class PuzzleWorldEntity : MonoBehaviour
+    public sealed class PuzzleEntity : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("A transform with smoothing applied, and will be moved every frame.")]
@@ -15,6 +17,12 @@ namespace DefaultNamespace
         [SerializeField]
         [Tooltip("How quickly the view should move to follow the logic.")]
         private float speed = 15f;
+
+        // === Events ===
+
+        public UnityEvent<SlideEventData> onSlide;
+
+        // === State ===
 
         public Vector3Int Position
         {
@@ -34,7 +42,20 @@ namespace DefaultNamespace
             TargetViewRotation = logic.rotation;
         }
 
-        protected virtual void Update()
+        private void Start()
+        {
+            var world = FindAnyObjectByType<PuzzleWorldGridContainer>().PuzzleWorld;
+            world?.Set(Position, this);
+            if (!name.Contains("air", StringComparison.InvariantCultureIgnoreCase))
+                print($"{name} loaded world: {World != null}");
+        }
+
+        private void OnDestroy()
+        {
+            World?.Delete(Position);
+        }
+
+        private void Update()
         {
             float t = speed * Time.deltaTime;
             view.position = Vector3.Lerp(view.position, TargetViewPosition, t);
@@ -48,7 +69,10 @@ namespace DefaultNamespace
 
         public void PuzzleDestroy()
         {
+            if (!name.Contains("Air", StringComparison.InvariantCultureIgnoreCase))
+                print($"destroy {name}");
             World = null;
+            enabled = false;
         }
 
         // === Actions ===
@@ -57,7 +81,8 @@ namespace DefaultNamespace
 
         public void Slide(Vector3Int offset)
         {
-            PuzzleWorldEntity targetEntity = GetNeighbor(offset);
+            PuzzleEntity targetEntity = GetNeighbor(offset);
+            Vector3Int previousPosition = Position;
 
             // Stepping UP onto stairs.
             if (targetEntity.TryGetComponent(out Stairs stairs))
@@ -97,6 +122,11 @@ namespace DefaultNamespace
                 }
             }
 
+            if (Position != previousPosition)
+            {
+                onSlide.Invoke(new SlideEventData{From = previousPosition, To = Position});
+            }
+
             // No matter how we slide, always update our view transform to look correct.
             if (GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
             {
@@ -112,23 +142,29 @@ namespace DefaultNamespace
 
         // === Queries ===
 
-        public PuzzleWorldEntity GetNeighbor(Vector3Int offset) => World.Get(Position + offset);
-        public PuzzleWorldEntity GetFront() => GetNeighbor(Vector3Int.forward);
-        public PuzzleWorldEntity GetBack() => GetNeighbor(Vector3Int.back);
-        public PuzzleWorldEntity GetAbove() => GetNeighbor(Vector3Int.up);
-        public PuzzleWorldEntity GetBelow() => GetNeighbor(Vector3Int.down);
-        public PuzzleWorldEntity GetLeft() => GetNeighbor(Vector3Int.left);
-        public PuzzleWorldEntity GetRight() => GetNeighbor(Vector3Int.right);
+        public PuzzleEntity GetNeighbor(Vector3Int offset) => World.Get(Position + offset);
+        public PuzzleEntity GetFront() => GetNeighbor(Vector3Int.forward);
+        public PuzzleEntity GetBack() => GetNeighbor(Vector3Int.back);
+        public PuzzleEntity GetAbove() => GetNeighbor(Vector3Int.up);
+        public PuzzleEntity GetBelow() => GetNeighbor(Vector3Int.down);
+        public PuzzleEntity GetLeft() => GetNeighbor(Vector3Int.left);
+        public PuzzleEntity GetRight() => GetNeighbor(Vector3Int.right);
 
         public bool IsGrounded()
         {
-            var below = GetBelow();
-            return below.TryGetComponent(out Ground _) || below.TryGetComponent(out Stairs _);
+            return GetBelow().TryGetComponent(out Ground _);
         }
 
         public bool IsTraversable()
         {
             return TryGetComponent(out Traversable _);
+        }
+
+        // === Structures ===
+        public struct SlideEventData
+        {
+            public Vector3Int From;
+            public Vector3Int To;
         }
     }
 }

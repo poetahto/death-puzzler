@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-    public class PlayerController : EntityBehaviour
+    public class PlayerController : MonoBehaviour
     {
         private Queue<Vector3Int> _movementQueue;
         private PuzzleWorldGrid _world;
@@ -16,9 +16,10 @@ namespace DefaultNamespace
 
         protected void Update()
         {
-            if (_movementQueue.TryDequeue(out Vector3Int offset) && Entity.IsGrounded())
+            if (_movementQueue.TryDequeue(out Vector3Int offset))
             {
-                Entity.Slide(offset);
+                foreach (var entity in FindObjectsByType<ControlledEntity>(FindObjectsSortMode.None))
+                    entity.HandleMove(offset);
             }
         }
 

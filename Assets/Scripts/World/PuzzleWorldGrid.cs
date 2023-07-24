@@ -6,22 +6,26 @@ using Object = UnityEngine.Object;
 
 namespace DefaultNamespace
 {
-    public class PuzzleWorldGrid : IEnumerable<PuzzleWorldEntity>
+    public class PuzzleWorldGrid : IEnumerable<PuzzleEntity>
     {
         private readonly Vector3Int _size;
-        private readonly PuzzleWorldEntity _defaultEntityPrefab;
-        private readonly List<PuzzleWorldEntity> _entityInstances;
+        private readonly PuzzleEntity _defaultEntityPrefab;
+        private readonly List<PuzzleEntity> _entityInstances;
         private readonly Transform _parent;
 
-        public event Action<PuzzleWorldEntity> OnCreateEntity;
+        public event Action<PuzzleEntity> OnCreateEntity;
 
-        public PuzzleWorldGrid(Vector3Int size, PuzzleWorldEntity defaultEntityPrefab, Transform parent)
+        public PuzzleWorldGrid(Vector3Int size, PuzzleEntity defaultEntityPrefab, Transform parent)
         {
             _size = size;
             _defaultEntityPrefab = defaultEntityPrefab;
-            _entityInstances = new List<PuzzleWorldEntity>(size.x * size.y * size.z);
+            _entityInstances = new List<PuzzleEntity>(size.x * size.y * size.z);
             _parent = parent;
+        }
 
+        public void Initialize()
+        {
+            Debug.Log("initialied grid");
             for (int z = 0; z < _size.z; z++)
             {
                 for (int y = 0; y < _size.y; y++)
@@ -29,23 +33,23 @@ namespace DefaultNamespace
                     for (int x = 0; x < _size.x; x++)
                     {
                         var position = new Vector3Int(x, y, z);
-                        _entityInstances.Add(CreateEntity(position, defaultEntityPrefab));
+                        _entityInstances.Add(CreateEntity(position, _defaultEntityPrefab));
                     }
                 }
             }
         }
 
-        public PuzzleWorldEntity Get(Vector3Int position)
+        public PuzzleEntity Get(Vector3Int position)
         {
             position = ClampPosition(position);
             return _entityInstances[GetIndex(position)];
         }
 
-        public void Set(Vector3Int position, PuzzleWorldEntity instance)
+        public void Set(Vector3Int position, PuzzleEntity instance)
         {
             position = ClampPosition(position);
 
-            PuzzleWorldEntity currentEntity = Get(position);
+            PuzzleEntity currentEntity = Get(position);
             currentEntity.PuzzleDestroy();
 
             instance.Position = position;
@@ -58,13 +62,13 @@ namespace DefaultNamespace
             position = ClampPosition(position);
             int index = GetIndex(position);
 
-            PuzzleWorldEntity oldEntity = _entityInstances[index];
+            PuzzleEntity oldEntity = _entityInstances[index];
             oldEntity.PuzzleDestroy();
 
             _entityInstances[index] = CreateEntity(position, _defaultEntityPrefab);
         }
 
-        public void Move(PuzzleWorldEntity entity, Vector3Int position)
+        public void Move(PuzzleEntity entity, Vector3Int position)
         {
             position = ClampPosition(position);
             var index = GetIndex(position);
@@ -77,9 +81,9 @@ namespace DefaultNamespace
             entity.Position = position;
         }
 
-        private PuzzleWorldEntity CreateEntity(Vector3Int position, PuzzleWorldEntity prefab)
+        private PuzzleEntity CreateEntity(Vector3Int position, PuzzleEntity prefab)
         {
-            PuzzleWorldEntity instance = Object.Instantiate(prefab, _parent);
+            PuzzleEntity instance = Object.Instantiate(prefab, _parent);
             instance.Position = position;
             instance.PuzzleCreate(this);
             OnCreateEntity?.Invoke(instance);
@@ -101,7 +105,7 @@ namespace DefaultNamespace
             };
         }
 
-        public IEnumerator<PuzzleWorldEntity> GetEnumerator()
+        public IEnumerator<PuzzleEntity> GetEnumerator()
         {
             return _entityInstances.GetEnumerator();
         }
