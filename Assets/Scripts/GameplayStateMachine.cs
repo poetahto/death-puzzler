@@ -6,6 +6,41 @@ using Object = UnityEngine.Object;
 
 namespace DefaultNamespace
 {
+    public class GameplayStateMachine : MonoBehaviour
+    {
+        public VictoryState victoryState;
+        public DefeatState defeatState;
+        public PlayingState playingState;
+        public HatchingState hatchingState;
+
+        private State _currentState;
+
+        private void Start()
+        {
+            if (FindObjectsByType<Egg>(FindObjectsSortMode.None).Length > 0)
+                TransitionToHatching();
+
+            else TransitionToPlaying();
+        }
+
+        public void TransitionTo(State state)
+        {
+            _currentState?.OnExit();
+            _currentState = state;
+            _currentState?.OnEnter();
+        }
+
+        public void TransitionToDefeat() => TransitionTo(defeatState);
+        public void TransitionToVictory() => TransitionTo(victoryState);
+        public void TransitionToPlaying() => TransitionTo(playingState);
+        public void TransitionToHatching() => TransitionTo(hatchingState);
+
+        public void Restart()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
     public abstract class State
     {
         public virtual void OnEnter() {}
@@ -72,41 +107,6 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap(playingActionMap);
-        }
-    }
-
-    public class GameplayController : MonoBehaviour
-    {
-        public VictoryState victoryState;
-        public DefeatState defeatState;
-        public PlayingState playingState;
-        public HatchingState hatchingState;
-
-        private State _currentState;
-
-        private void Start()
-        {
-            if (FindObjectsByType<Egg>(FindObjectsSortMode.None).Length > 0)
-                TransitionToHatching();
-
-            else TransitionToPlaying();
-        }
-
-        public void TransitionTo(State state)
-        {
-            _currentState?.OnExit();
-            _currentState = state;
-            _currentState?.OnEnter();
-        }
-
-        public void TransitionToDefeat() => TransitionTo(defeatState);
-        public void TransitionToVictory() => TransitionTo(victoryState);
-        public void TransitionToPlaying() => TransitionTo(playingState);
-        public void TransitionToHatching() => TransitionTo(hatchingState);
-
-        public void Restart()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

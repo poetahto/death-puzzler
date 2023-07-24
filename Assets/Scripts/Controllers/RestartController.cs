@@ -9,7 +9,7 @@ namespace DefaultNamespace
         {
             if (context.started)
             {
-                FindAnyObjectByType<GameplayController>().Restart();
+                FindAnyObjectByType<GameplayStateMachine>().Restart();
             }
         }
     }

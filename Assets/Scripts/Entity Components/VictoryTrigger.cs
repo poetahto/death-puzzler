@@ -6,7 +6,7 @@ namespace DefaultNamespace
     {
         protected override void OnPuzzleTriggerEnter(Entity entity, Vector3Int from)
         {
-            FindAnyObjectByType<GameplayController>().TransitionToVictory();
+            FindAnyObjectByType<GameplayStateMachine>().TransitionToVictory();
         }
     }
 }

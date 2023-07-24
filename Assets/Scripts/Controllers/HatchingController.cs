@@ -41,7 +41,7 @@ namespace DefaultNamespace
                     livingEntity.onDeath.AddListener(HandleEntityDeath);
                 }
 
-                FindAnyObjectByType<GameplayController>().TransitionToPlaying();
+                FindAnyObjectByType<GameplayStateMachine>().TransitionToPlaying();
             }
         }
 
@@ -50,7 +50,7 @@ namespace DefaultNamespace
             eventData.entity.onDeath.RemoveListener(HandleEntityDeath);
 
             if (_spawners.Count > 0)
-                FindAnyObjectByType<GameplayController>().TransitionToHatching();
+                FindAnyObjectByType<GameplayStateMachine>().TransitionToHatching();
         }
 
         private static int Repeat(int value, int max)

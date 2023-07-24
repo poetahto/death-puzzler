@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropDuration: 0.2
-  fallDamageLength: 2
+  fallDamageLength: 3
 --- !u!114 &967224061710203660
 MonoBehaviour:
   m_ObjectHideFlags: 0

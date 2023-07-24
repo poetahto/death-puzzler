@@ -6,7 +6,7 @@ namespace DefaultNamespace.UI
     {
         public void Run()
         {
-            FindAnyObjectByType<GameplayController>().Restart();
+            FindAnyObjectByType<GameplayStateMachine>().Restart();
         }
     }
 }

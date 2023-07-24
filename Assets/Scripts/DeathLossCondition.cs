@@ -17,7 +17,7 @@ namespace DefaultNamespace
 
             if (_remaining <= 0)
             {
-                FindAnyObjectByType<GameplayController>().TransitionToDefeat();
+                FindAnyObjectByType<GameplayStateMachine>().TransitionToDefeat();
             }
         }
     }
