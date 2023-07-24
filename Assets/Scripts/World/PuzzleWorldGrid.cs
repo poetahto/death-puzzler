@@ -50,6 +50,10 @@ namespace DefaultNamespace
             position = ClampPosition(position);
 
             Entity currentEntity = Get(position);
+
+            if (currentEntity == instance)
+                return;
+
             currentEntity.PuzzleDestroy();
 
             instance.Position = position;
@@ -65,7 +69,7 @@ namespace DefaultNamespace
             Entity oldEntity = _entityInstances[index];
             oldEntity.PuzzleDestroy();
 
-            _entityInstances[index] = CreateEntity(position, _defaultEntityPrefab);
+            CreateEntity(position, _defaultEntityPrefab);
         }
 
         public void Move(Entity entity, Vector3Int newPosition)
@@ -95,6 +99,14 @@ namespace DefaultNamespace
         private int GetIndex(Vector3Int position)
         {
             return position.x + (position.y * _size.x) + (position.z * (_size.y * _size.x));
+        }
+
+        public bool InBounds(Vector3Int position)
+        {
+            return position is { x: >= 0, y: >= 0, z: >= 0 }
+                   && position.x <= _size.x
+                   && position.y <= _size.y
+                   && position.z <= _size.z;
         }
 
         private Vector3Int ClampPosition(Vector3Int position)

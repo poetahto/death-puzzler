@@ -13,6 +13,8 @@ namespace DefaultNamespace
 
         private int Repeat(int value, int max)
         {
+            max = Mathf.Max(1, max);
+
             while (value >= max)
             {
                 value -= max;
@@ -56,15 +58,12 @@ namespace DefaultNamespace
             }
         }
 
-        private static void HandleEntityDeath(LivingEntity.DeathEvent eventData)
+        private void HandleEntityDeath(LivingEntity.DeathEvent eventData)
         {
             eventData.entity.onDeath.RemoveListener(HandleEntityDeath);
-            FindAnyObjectByType<GameplayController>().TransitionToHatching();
-        }
 
-        private void OnGUI()
-        {
-            GUILayout.Label($"index: {SpawnIndex}");
+            if (spawners.Count > 0)
+                FindAnyObjectByType<GameplayController>().TransitionToHatching();
         }
     }
 }

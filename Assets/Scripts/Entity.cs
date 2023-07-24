@@ -62,7 +62,7 @@ namespace DefaultNamespace
 
         public void PuzzleDestroy()
         {
-            World = null;
+            // World = null;
             enabled = false;
         }
 
@@ -76,12 +76,9 @@ namespace DefaultNamespace
             Vector3Int previousPosition = Position;
 
             // Stepping UP onto stairs.
-            if (targetEntity.TryGetComponent(out Stairs stairs))
+            if (targetEntity.TryGetComponent(out Stairs stairs) && stairs.CanEntityEnter(this) && targetEntity.GetAbove().IsTraversable())
             {
-                if (stairs.CanEntityEnter(this) && targetEntity.GetAbove().IsTraversable())
-                {
-                    Move(targetEntity.Position + Vector3Int.up);
-                }
+                Move(targetEntity.Position + Vector3Int.up);
             }
             // Stepping DOWN onto stairs.
             else if (targetEntity.GetBelow().TryGetComponent(out stairs))
@@ -111,6 +108,11 @@ namespace DefaultNamespace
                     // Normal movement.
                     Move(targetEntity.Position);
                 }
+            }
+            else if (targetEntity.TryGetComponent(out Pushable pushable) && pushable.TryPush(offset))
+            {
+                // Normal movement.
+                Move(Position + offset);
             }
 
             if (Position != previousPosition)
