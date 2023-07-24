@@ -70,22 +70,38 @@ namespace DefaultNamespace
 
         public void Move(Vector3Int position) => World.Move(this, position);
 
-        public void Slide(Vector3Int offset)
+        // todo: this method is out-of-hand.
+        // needs a cleaner way to define movement state
+        // i wish you could make more complex movement per-entity, like boxes only sliding down ramps
+        public bool Slide(Vector3Int offset)
         {
+            if (!World.InBounds(Position + offset))
+                return false;
+
             Entity targetEntity = GetNeighbor(offset);
             Vector3Int previousPosition = Position;
 
             // Stepping UP onto stairs.
-            if (targetEntity.TryGetComponent(out Stairs stairs) && stairs.CanEntityEnter(this) && targetEntity.GetAbove().IsTraversable())
+            if (targetEntity.TryGetComponent(out Stairs stairs) && stairs.CanEntityEnter(this))
             {
-                Move(targetEntity.Position + Vector3Int.up);
+                var above = targetEntity.GetAbove();
+
+                if (above.IsTraversable())
+                    Move(targetEntity.Position + Vector3Int.up);
+
+                else if (above.IsPushable() && above.Slide(offset))
+                    Move(targetEntity.Position + Vector3Int.up);
             }
             // Stepping DOWN onto stairs.
             else if (targetEntity.GetBelow().TryGetComponent(out stairs))
             {
-                if (stairs.CanEntityEnter(this) && targetEntity.IsTraversable())
+                if (stairs.CanEntityEnter(this))
                 {
-                    Move(targetEntity.Position);
+                    if (targetEntity.IsTraversable())
+                        Move(Position + offset);
+
+                    else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
+                        Move(Position + offset);
                 }
             }
             else if (targetEntity.IsTraversable())
@@ -95,7 +111,13 @@ namespace DefaultNamespace
                     // Stepping DOWN off of stairs.
                     if (stairs.CanEntityEnter(targetEntity.GetBelow()))
                     {
-                        Move(targetEntity.Position + Vector3Int.down);
+                        var below = targetEntity.GetBelow();
+
+                        if (below.IsTraversable())
+                            Move(targetEntity.Position + Vector3Int.down);
+
+                        else if (below.IsPushable() && below.Slide(offset))
+                            Move(targetEntity.Position + Vector3Int.down);
                     }
                     // Stepping UP off of stairs.
                     else if (stairs.CanEntityEnter(targetEntity))
@@ -109,18 +131,29 @@ namespace DefaultNamespace
                     Move(targetEntity.Position);
                 }
             }
-            else if (targetEntity.TryGetComponent(out Pushable pushable) && pushable.TryPush(offset))
+            else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
             {
                 // Normal movement.
                 Move(Position + offset);
             }
 
+            if (GetAbove().TryGetComponent(out Pushable _))
+                GetAbove().Slide(offset);
+
+            // No matter how we slide, always update our view transform to look correct.
+            UpdateView();
+
             if (Position != previousPosition)
             {
                 onSlide.Invoke(new SlideEventData{From = previousPosition, To = Position});
+                return true;
             }
 
-            // No matter how we slide, always update our view transform to look correct.
+            return false;
+        }
+
+        public void UpdateView()
+        {
             if (GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
             {
                 TargetViewPosition = slideTransform.Position;
