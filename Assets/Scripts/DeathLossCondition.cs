@@ -4,25 +4,13 @@ namespace DefaultNamespace
 {
     public class DeathLossCondition : MonoBehaviour
     {
-        [SerializeField] private LivingEntity[] entities;
+        [SerializeField] private int remaining;
 
-        private int _remaining;
-
-        private void Start()
+        public void HandleEntityDeath()
         {
-            _remaining = entities.Length;
+            remaining--;
 
-            foreach (var livingEntity in entities)
-            {
-                livingEntity.onDeath.AddListener(HandleEntityDeath);
-            }
-        }
-
-        private void HandleEntityDeath()
-        {
-            _remaining--;
-
-            if (_remaining <= 0)
+            if (remaining <= 0)
             {
                 FindAnyObjectByType<GameplayController>().TransitionToDefeat();
             }

@@ -4,10 +4,9 @@ using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-    public class InputController : MonoBehaviour
+    public class InputMovementController : MonoBehaviour
     {
         private Queue<Vector3Int> _movementQueue;
-        private PuzzleWorldGrid _world;
         private int _maxQueue;
 
         private void Awake()

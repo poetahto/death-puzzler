@@ -12,7 +12,7 @@ namespace DefaultNamespace
 
         private Vector3 WorldNormal => transform.localToWorldMatrix.MultiplyVector(normal);
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.DrawLine(Position, Position + WorldNormal);
         }

@@ -20,7 +20,7 @@ namespace DefaultNamespace
             return false;
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             foreach (var entrance in entrancePositions)
             {

@@ -5,7 +5,7 @@ namespace DefaultNamespace
 {
     public class LivingEntity : MonoBehaviour
     {
-        public UnityEvent onDeath;
+        public UnityEvent<DeathEvent> onDeath;
 
         public bool IsAlive { get; private set; } = true;
 
@@ -14,8 +14,13 @@ namespace DefaultNamespace
             if (IsAlive)
             {
                 IsAlive = false;
-                onDeath.Invoke();
+                onDeath.Invoke(new DeathEvent{entity = this});
             }
+        }
+
+        public struct DeathEvent
+        {
+            public LivingEntity entity;
         }
     }
 

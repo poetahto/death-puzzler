@@ -1,5 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace DefaultNamespace
 {
@@ -17,6 +20,12 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             victoryUI.SetActive(true);
+            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap("None"); // disable controls
+        }
+
+        public override void OnExit()
+        {
+            victoryUI.SetActive(false);
         }
     }
 
@@ -28,37 +37,56 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             defeatUI.SetActive(true);
+            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap("None"); // disable controls
+        }
+
+        public override void OnExit()
+        {
+            defeatUI.SetActive(false);
+        }
+    }
+
+    [Serializable]
+    public class HatchingState : State
+    {
+        [SerializeField] private string hatchingActionMap;
+        [SerializeField] private GameObject hatchingUI;
+
+        public override void OnEnter()
+        {
+            hatchingUI.SetActive(true);
+            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap(hatchingActionMap);
+        }
+
+        public override void OnExit()
+        {
+            hatchingUI.SetActive(false);
         }
     }
 
     [Serializable]
     public class PlayingState : State
     {
-        [SerializeField] private InputController controller;
+        [SerializeField] private string playingActionMap;
 
         public override void OnEnter()
         {
-            controller.enabled = true;
-        }
-
-        public override void OnExit()
-        {
-            controller.enabled = false;
+            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap(playingActionMap);
         }
     }
-
 
     public class GameplayController : MonoBehaviour
     {
         public VictoryState victoryState;
         public DefeatState defeatState;
         public PlayingState playingState;
+        public HatchingState hatchingState;
 
         private State _currentState;
 
         private void Start()
         {
-            TransitionTo(playingState);
+            TransitionTo(hatchingState);
         }
 
         public void TransitionTo(State state)
@@ -71,5 +99,6 @@ namespace DefaultNamespace
         public void TransitionToDefeat() => TransitionTo(defeatState);
         public void TransitionToVictory() => TransitionTo(victoryState);
         public void TransitionToPlaying() => TransitionTo(playingState);
+        public void TransitionToHatching() => TransitionTo(hatchingState);
     }
 }

@@ -2,7 +2,7 @@
     "name": "Input",
     "maps": [
         {
-            "name": "Default",
+            "name": "Playing",
             "id": "03d69d6b-5970-42cc-9da6-7fda6ddf810e",
             "actions": [
                 {
@@ -88,6 +88,124 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Hatching",
+            "id": "e5aaa195-e371-4bf2-86ed-e0c728895219",
+            "actions": [
+                {
+                    "name": "Backward",
+                    "type": "Button",
+                    "id": "5e64d50b-7a67-4005-94ad-d3c436ded0f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Forward",
+                    "type": "Button",
+                    "id": "791541d5-80c4-4c20-80b4-fd113d28ba28",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "7c0f3469-3c95-4db0-bf87-13c2f9bca496",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3cbc4f56-4f42-4603-88ae-cbd17d28f8df",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Backward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8d8ee5c-8814-42ca-b0d9-866ec8b8ac41",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Backward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "113bf9db-aa56-4f3c-81fb-7239bb0d7704",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Forward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f9cbc39-de04-450e-bb4e-09f0c2133362",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Forward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99aafb0d-0fd7-4516-92ab-616e709f0fcc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36908d72-28df-460b-843b-0d60aaa42a2a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4bbbe432-59f4-4aa9-878e-3493a6db99d9",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "None",
+            "id": "0795a53d-07ad-4efc-a5be-981db12eb529",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []
