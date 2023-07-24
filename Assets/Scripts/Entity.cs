@@ -79,6 +79,7 @@ namespace DefaultNamespace
                 return false;
 
             Entity targetEntity = GetNeighbor(offset);
+            Entity oldAbove = GetAbove();
             Vector3Int previousPosition = Position;
 
             // Stepping UP onto stairs.
@@ -89,8 +90,8 @@ namespace DefaultNamespace
                 if (above.IsTraversable())
                     Move(targetEntity.Position + Vector3Int.up);
 
-                else if (above.IsPushable() && above.Slide(offset))
-                    Move(targetEntity.Position + Vector3Int.up);
+                else if (above.IsPushable())
+                    above.Slide(offset);
             }
             // Stepping DOWN onto stairs.
             else if (targetEntity.GetBelow().TryGetComponent(out stairs))
@@ -100,8 +101,8 @@ namespace DefaultNamespace
                     if (targetEntity.IsTraversable())
                         Move(Position + offset);
 
-                    else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
-                        Move(Position + offset);
+                    else if (targetEntity.IsPushable())
+                        targetEntity.Slide(offset);
                 }
             }
             else if (targetEntity.IsTraversable())
@@ -116,29 +117,18 @@ namespace DefaultNamespace
                         if (below.IsTraversable())
                             Move(targetEntity.Position + Vector3Int.down);
 
-                        else if (below.IsPushable() && below.Slide(offset))
-                            Move(targetEntity.Position + Vector3Int.down);
+                        else if (below.IsPushable())
+                            below.Slide(offset);
                     }
                     // Stepping UP off of stairs.
                     else if (stairs.CanEntityEnter(targetEntity))
-                    {
                         Move(targetEntity.Position);
-                    }
                 }
-                else
-                {
-                    // Normal movement.
-                    Move(targetEntity.Position);
-                }
+                else Move(targetEntity.Position);
             }
-            else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
-            {
-                // Normal movement.
-                Move(Position + offset);
-            }
+            else if (targetEntity.IsPushable())
+                targetEntity.Slide(offset);
 
-            if (GetAbove().TryGetComponent(out Pushable _))
-                GetAbove().Slide(offset);
 
             // No matter how we slide, always update our view transform to look correct.
             UpdateView();
@@ -146,6 +136,10 @@ namespace DefaultNamespace
             if (Position != previousPosition)
             {
                 onSlide.Invoke(new SlideEventData{From = previousPosition, To = Position});
+
+                if (oldAbove.TryGetComponent(out Pushable _))
+                    oldAbove.Slide(offset);
+
                 return true;
             }
 

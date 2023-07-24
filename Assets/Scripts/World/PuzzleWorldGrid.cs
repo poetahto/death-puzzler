@@ -104,9 +104,9 @@ namespace DefaultNamespace
         public bool InBounds(Vector3Int position)
         {
             return position is { x: >= 0, y: >= 0, z: >= 0 }
-                   && position.x <= _size.x
-                   && position.y <= _size.y
-                   && position.z <= _size.z;
+                   && position.x < _size.x
+                   && position.y < _size.y
+                   && position.z < _size.z;
         }
 
         private Vector3Int ClampPosition(Vector3Int position)
