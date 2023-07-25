@@ -24,8 +24,7 @@ namespace DefaultNamespace
             if (!isGrounded && _cooldown <= 0) // Falling in air, apply gravity.
             {
                 Entity.Move(Entity.Position + Vector3Int.down);
-                Entity.TargetViewPosition = Entity.Position;
-                Entity.TargetViewRotation = Quaternion.identity;
+                Entity.UpdateView();
                 _cooldown = dropDuration;
                 _fallLength++;
             }

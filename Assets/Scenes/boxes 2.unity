@@ -1112,6 +1112,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b737873b-110e-4b39-97ef-d24550fba81a
     m_ActionName: Playing/Restart[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 573180711}
+        m_TargetAssemblyTypeName: DefaultNamespace.GrabController, Assembly-CSharp
+        m_MethodName: HandleGrab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6476c063-9b6e-4a07-a6f2-371995dd771d
+    m_ActionName: Playing/Grab[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 573180711}
+        m_TargetAssemblyTypeName: DefaultNamespace.GrabController, Assembly-CSharp
+        m_MethodName: HandleDrop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9fc27d23-4b76-4be8-9b63-481ded8b1976
+    m_ActionName: Playing/Drop[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Playing
@@ -2932,6 +2964,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5722214161249931426, guid: 4b7c8be39425c384681777307ed51f8c, type: 3}
   m_PrefabInstance: {fileID: 571117791}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &573180708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 573180710}
+  - component: {fileID: 573180711}
+  m_Layer: 0
+  m_Name: Grab Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &573180710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573180708}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &573180711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573180708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d56e9959ff41cab6b4b9b3c693e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &575126379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11278,6 +11354,7 @@ SceneRoots:
   - {fileID: 983722315}
   - {fileID: 198560964}
   - {fileID: 472621349850935322}
+  - {fileID: 573180710}
   - {fileID: 777150420}
   - {fileID: 1153696538}
   - {fileID: 92873984}

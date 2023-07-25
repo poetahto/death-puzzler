@@ -513,6 +513,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5722214161249931426, guid: 4b7c8be39425c384681777307ed51f8c, type: 3}
   m_PrefabInstance: {fileID: 1009661398}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &179915368
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234089802215274171, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600241033943743185, guid: c450c42f254287946b15295029529d40, type: 3}
+      propertyPath: m_Name
+      value: Egg (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3429060644689537083, guid: c450c42f254287946b15295029529d40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: c450c42f254287946b15295029529d40, type: 3}
 --- !u!1 &189595330
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +860,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7c0f3469-3c95-4db0-bf87-13c2f9bca496
     m_ActionName: Hatching/Select[/Keyboard/space,/Keyboard/enter,/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2090169810}
+        m_TargetAssemblyTypeName: DefaultNamespace.RestartController, Assembly-CSharp
+        m_MethodName: HandleRestart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b737873b-110e-4b39-97ef-d24550fba81a
+    m_ActionName: Playing/Restart[/Keyboard/r,/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8524543024416740130}
+        m_TargetAssemblyTypeName: DefaultNamespace.GrabController, Assembly-CSharp
+        m_MethodName: HandleGrab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6476c063-9b6e-4a07-a6f2-371995dd771d
+    m_ActionName: Playing/Grab[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8524543024416740130}
+        m_TargetAssemblyTypeName: DefaultNamespace.GrabController, Assembly-CSharp
+        m_MethodName: HandleDrop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9fc27d23-4b76-4be8-9b63-481ded8b1976
+    m_ActionName: Playing/Drop[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Playing
@@ -3473,6 +3581,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2090169809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090169811}
+  - component: {fileID: 2090169810}
+  m_Layer: 0
+  m_Name: Restart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2090169810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090169809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c19d32eb03b4c398fa0970c66e171a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2090169811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090169809}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2140221857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5722214161249931426, guid: 4b7c8be39425c384681777307ed51f8c, type: 3}
@@ -3733,6 +3885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 472621349850935322}
   - component: {fileID: 8411292687760622747}
+  - component: {fileID: 8524543024416740130}
   m_Layer: 0
   m_Name: 'Input Movement '
   m_TagString: Untagged
@@ -3740,6 +3893,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8524543024416740130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524543024416740129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d56e9959ff41cab6b4b9b3c693e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8870929342156965073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3914,6 +4079,7 @@ SceneRoots:
   - {fileID: 17569139}
   - {fileID: 4479468495592265162}
   - {fileID: 1822381946}
+  - {fileID: 179915368}
   - {fileID: 1139260008}
   - {fileID: 1612652537}
   - {fileID: 1416185466}
@@ -3923,3 +4089,4 @@ SceneRoots:
   - {fileID: 198560964}
   - {fileID: 472621349850935322}
   - {fileID: 777150420}
+  - {fileID: 2090169811}

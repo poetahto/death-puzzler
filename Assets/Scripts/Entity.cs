@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,14 +32,15 @@ namespace DefaultNamespace
 
         public PuzzleWorldGrid World { get; private set; }
         public Vector3 TargetViewPosition { get; set; }
-        public Quaternion TargetViewRotation { get; set; }
+        public Vector3 TargetViewRotation { get; set; }
+        private Vector3 _angles;
 
         // === Logic ===
 
         private void Awake()
         {
             TargetViewPosition = logic.position;
-            TargetViewRotation = logic.rotation;
+            TargetViewRotation = view.localRotation.eulerAngles;
         }
 
         private void Start()
@@ -52,7 +53,8 @@ namespace DefaultNamespace
         {
             float t = speed * Time.deltaTime;
             view.position = Vector3.Lerp(view.position, TargetViewPosition, t);
-            view.rotation = Quaternion.Lerp(view.rotation, TargetViewRotation, t);
+            // view.up = Vector3.Lerp(view.up, TargetViewUp, t);
+            // view.rotation = Quaternion.Lerp(view.rotation, TargetViewRotation, t);
         }
 
         public void PuzzleCreate(PuzzleWorldGrid world)
@@ -75,7 +77,7 @@ namespace DefaultNamespace
         // i wish you could make more complex movement per-entity, like boxes only sliding down ramps
         public bool Slide(Vector3Int offset)
         {
-            if (!World.InBounds(Position + offset))
+            if (!World.InBounds(Position + offset) || offset == Vector3Int.zero)
                 return false;
 
             Entity targetEntity = GetNeighbor(offset);
@@ -150,12 +152,12 @@ namespace DefaultNamespace
             if (GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
             {
                 TargetViewPosition = slideTransform.Position;
-                TargetViewRotation = slideTransform.Rotation;
+                TargetViewRotation = slideTransform.EulerAngles;
             }
             else
             {
                 TargetViewPosition = Position;
-                TargetViewRotation = Quaternion.identity;
+                TargetViewRotation = Vector3.zero;
             }
         }
 

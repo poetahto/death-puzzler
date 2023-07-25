@@ -90,14 +90,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6713550682499600818}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.39141503, w: 0.9202143}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0.111, y: -0.093, z: 0}
   m_LocalScale: {x: 1.4092, y: 0.27633, z: 0.9531}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4145244217082908372}
   m_Father: {fileID: 4903642256907289445}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 46.085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!33 &8210849723148777820
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7152261789605587847}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 1, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -221,6 +221,9 @@ MonoBehaviour:
   view: {fileID: 4903642256907289445}
   logic: {fileID: 7522517215962117159}
   speed: 15
+  onSlide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5324666852859353727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -0.35, y: 0.35, z: 0}
-  normal: {x: -1, y: 1, z: 0}
+  angles: {x: 0, y: 0, z: 45}
 --- !u!1001 &8207571767529388446
 PrefabInstance:
   m_ObjectHideFlags: 0

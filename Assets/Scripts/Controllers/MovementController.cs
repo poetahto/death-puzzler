@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace DefaultNamespace
 {
-    public class InputMovementController : MonoBehaviour
+    public class MovementController : MonoBehaviour
     {
         private Queue<Vector3Int> _movementQueue;
         private int _maxQueue;
