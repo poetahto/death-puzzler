@@ -192,6 +192,9 @@ MonoBehaviour:
   onSlide:
     m_PersistentCalls:
       m_Calls: []
+  onMove:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3954068583246336759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 8538424848056376234, guid: 0f9a21e9e86800d409c535442d31100b, type: 3}
       propertyPath: m_Name
       value: Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538424848056376234, guid: 0f9a21e9e86800d409c535442d31100b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
