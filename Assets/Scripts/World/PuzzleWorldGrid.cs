@@ -14,7 +14,7 @@ namespace DefaultNamespace
         private readonly Transform _parent;
 
         public event Action<Entity> OnCreateEntity;
-        public event Action<MoveEvent> OnMove;
+        public event Action<Entity.MoveEvent> OnMove;
 
         public PuzzleWorldGrid(Vector3Int size, Entity defaultEntityPrefab, Transform parent)
         {
@@ -84,7 +84,8 @@ namespace DefaultNamespace
             _entityInstances[index] = entity;
             _entityInstances[GetIndex(oldPosition)] = CreateEntity(oldPosition, _defaultEntityPrefab);
             entity.Position = newPosition;
-            OnMove?.Invoke(new MoveEvent{entity = entity, from = oldPosition, to = newPosition});
+            entity.onMove.Invoke(new Entity.MoveEvent{From = oldPosition, To = newPosition, Entity = entity});
+            OnMove?.Invoke(new Entity.MoveEvent{Entity = entity, From = oldPosition, To = newPosition});
         }
 
         private Entity CreateEntity(Vector3Int position, Entity prefab)
@@ -127,15 +128,6 @@ namespace DefaultNamespace
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        // === Structures ===
-
-        public struct MoveEvent
-        {
-            public Entity entity;
-            public Vector3Int from;
-            public Vector3Int to;
         }
     }
 }

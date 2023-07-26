@@ -19,7 +19,8 @@ namespace DefaultNamespace
 
         // === Events ===
 
-        public UnityEvent<SlideEventData> onSlide;
+        public UnityEvent<SlideEvent> onSlide;
+        public UnityEvent<MoveEvent> onMove;
 
         // === State ===
 
@@ -68,7 +69,10 @@ namespace DefaultNamespace
 
         // === Actions ===
 
-        public void Move(Vector3Int position) => World.Move(this, position);
+        public void Move(Vector3Int position)
+        {
+            World.Move(this, position);
+        }
 
         // todo: this method is out-of-hand.
         // needs a cleaner way to define movement state
@@ -134,7 +138,7 @@ namespace DefaultNamespace
 
             if (Position != previousPosition)
             {
-                onSlide.Invoke(new SlideEventData{From = previousPosition, To = Position});
+                onSlide.Invoke(new SlideEvent{From = previousPosition, To = Position, Entity = this});
 
                 if (oldAbove.TryGetComponent(out Pushable _))
                     oldAbove.Slide(offset);
@@ -169,6 +173,11 @@ namespace DefaultNamespace
         public Entity GetLeft() => GetNeighbor(Vector3Int.left);
         public Entity GetRight() => GetNeighbor(Vector3Int.right);
 
+        public bool IsAdjacent(Entity other)
+        {
+            return (Position - other.Position).sqrMagnitude == 1;
+        }
+
         public bool IsGrounded()
         {
             return GetBelow().TryGetComponent(out Ground _);
@@ -180,8 +189,16 @@ namespace DefaultNamespace
         }
 
         // === Structures ===
-        public struct SlideEventData
+        public struct SlideEvent
         {
+            public Entity Entity;
+            public Vector3Int From;
+            public Vector3Int To;
+        }
+
+        public struct MoveEvent
+        {
+            public Entity Entity;
             public Vector3Int From;
             public Vector3Int To;
         }

@@ -33,11 +33,11 @@ namespace DefaultNamespace
             }
         }
 
-        private void HandleOnMove(PuzzleWorldGrid.MoveEvent moveEvent)
+        private void HandleOnMove(Entity.MoveEvent moveEvent)
         {
-            if (moveEvent.to == _position)
+            if (moveEvent.To == _position)
             {
-                OnPuzzleTriggerEnter(moveEvent.entity, moveEvent.from);
+                OnPuzzleTriggerEnter(moveEvent.Entity, moveEvent.From);
 
                 if (oneShot)
                     enabled = false;

@@ -1,12 +1,39 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class ControlledEntity : EntityBehaviour
     {
+        [SerializeField]
+        private Transform facingTransform;
+
+        [SerializeField]
+        private Animator movementAnimator;
+
         private Vector3Int _grabDirection = Vector3Int.forward;
         private bool _isGrabbing;
         private Entity _grabbedEntity;
+
+        private void Start()
+        {
+            Entity.onMove.AddListener(CheckGrounded);
+        }
+
+        private void CheckGrounded(Entity.MoveEvent eventData)
+        {
+            bool isGrounded = Entity.IsGrounded();
+            movementAnimator.SetBool("isGrounded", isGrounded);
+
+            if (_isGrabbing && !isGrounded)
+                HandleDrop();
+        }
+
+        private void Update()
+        {
+            var t = 15 * Time.deltaTime;
+            facingTransform.localRotation = Quaternion.Lerp(facingTransform.localRotation, Quaternion.LookRotation(-_grabDirection), t);
+        }
 
         public void HandleMove(Vector3Int offset)
         {
@@ -21,7 +48,6 @@ namespace DefaultNamespace
                     legalDirection.Normalize();
                     Vector3Int finalOffset = Vector3Int.CeilToInt(legalDirection * Mathf.Clamp01(Vector3.Dot(legalDirection, offset)));
 
-                    Entity.Slide(finalOffset);
                     _grabbedEntity.Slide(finalOffset);
                 }
                 else
@@ -47,6 +73,8 @@ namespace DefaultNamespace
                     break;
                 }
             }
+
+            movementAnimator.SetBool("grabbing", _isGrabbing);
         }
 
         private bool TryGrabNeighbor(Vector3Int direction, out Entity entity)
@@ -69,6 +97,7 @@ namespace DefaultNamespace
 
         public void HandleDrop()
         {
+            movementAnimator.SetBool("grabbing", false);
             _isGrabbing = false;
         }
     }
