@@ -55,12 +55,13 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             victoryUI.SetActive(true);
-            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap("None"); // disable controls
+            InputUtil.PushActionMap("None");
         }
 
         public override void OnExit()
         {
             victoryUI.SetActive(false);
+            InputUtil.PopActionMap();
         }
     }
 
@@ -72,12 +73,13 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             defeatUI.SetActive(true);
-            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap("None"); // disable controls
+            InputUtil.PushActionMap("None");
         }
 
         public override void OnExit()
         {
             defeatUI.SetActive(false);
+            InputUtil.PopActionMap();
         }
     }
 
@@ -90,12 +92,13 @@ namespace DefaultNamespace
         public override void OnEnter()
         {
             hatchingUI.SetActive(true);
-            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap(hatchingActionMap);
+            InputUtil.PushActionMap(hatchingActionMap);
         }
 
         public override void OnExit()
         {
             hatchingUI.SetActive(false);
+            InputUtil.PopActionMap();
         }
     }
 
@@ -106,7 +109,12 @@ namespace DefaultNamespace
 
         public override void OnEnter()
         {
-            Object.FindAnyObjectByType<PlayerInput>().SwitchCurrentActionMap(playingActionMap);
+            InputUtil.PushActionMap(playingActionMap);
+        }
+
+        public override void OnExit()
+        {
+            InputUtil.PopActionMap();
         }
     }
 }
