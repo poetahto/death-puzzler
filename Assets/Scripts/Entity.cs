@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 namespace DefaultNamespace
@@ -32,7 +31,7 @@ namespace DefaultNamespace
 
         public PuzzleWorldGrid World { get; private set; }
         public Vector3 TargetViewPosition { get; set; }
-        public Vector3 TargetViewRotation { get; set; }
+        public Quaternion TargetViewRotation { get; set; }
         private Vector3 _angles;
 
         // === Logic ===
@@ -40,7 +39,7 @@ namespace DefaultNamespace
         private void Awake()
         {
             TargetViewPosition = logic.position;
-            TargetViewRotation = view.localRotation.eulerAngles;
+            TargetViewRotation = view.localRotation;
         }
 
         private void Start()
@@ -53,8 +52,7 @@ namespace DefaultNamespace
         {
             float t = speed * Time.deltaTime;
             view.position = Vector3.Lerp(view.position, TargetViewPosition, t);
-            // view.up = Vector3.Lerp(view.up, TargetViewUp, t);
-            // view.rotation = Quaternion.Lerp(view.rotation, TargetViewRotation, t);
+            view.localRotation = Quaternion.Lerp(view.localRotation, TargetViewRotation, t);
         }
 
         public void PuzzleCreate(PuzzleWorldGrid world)
@@ -152,12 +150,12 @@ namespace DefaultNamespace
             if (GetBelow().TryGetComponent(out CustomSlideTransform slideTransform))
             {
                 TargetViewPosition = slideTransform.Position;
-                TargetViewRotation = slideTransform.EulerAngles;
+                TargetViewRotation = slideTransform.Rotation;
             }
             else
             {
                 TargetViewPosition = Position;
-                TargetViewRotation = Vector3.zero;
+                TargetViewRotation = Quaternion.identity;
             }
         }
 
