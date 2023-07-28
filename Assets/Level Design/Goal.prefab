@@ -416,7 +416,6 @@ GameObject:
   - component: {fileID: 3372078524586107270}
   - component: {fileID: 9024079713729469936}
   - component: {fileID: 35670210616012703}
-  - component: {fileID: 7928087642420864574}
   - component: {fileID: 7792725043603142129}
   m_Layer: 0
   m_Name: Goal
@@ -498,18 +497,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7928087642420864574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2858232900566236265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea1857146b1461ab2c8b90ce7b38020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7792725043603142129
 MonoBehaviour:
   m_ObjectHideFlags: 0
