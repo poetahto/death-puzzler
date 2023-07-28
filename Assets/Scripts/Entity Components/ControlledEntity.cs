@@ -18,7 +18,7 @@ namespace DefaultNamespace
         private Vector3 _baseScale;
         private float _boost;
 
-        public Vector3Int Direction { get; private set; } = Vector3Int.forward;
+        public Vector3Int Direction { get; private set; } = Vector3Int.back;
         public bool IsGrabbing { get; private set; }
 
         private void Start()

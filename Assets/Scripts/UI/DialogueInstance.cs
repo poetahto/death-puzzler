@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,18 +10,20 @@ namespace DefaultNamespace
         [SerializeField] private string[] lines;
         [SerializeField] private float characterPause;
         [SerializeField] private float linePause;
-        [SerializeField] private GameObject dialogueUI;
+        [SerializeField] private float finishPause;
+        [SerializeField] private CanvasGroup dialogueUI;
         [SerializeField] private TMP_Text textDisplay;
+        [SerializeField] private float fadeInTime;
 
-        public void Play()
+        public Coroutine Play(Action onComplete = null)
         {
-            StartCoroutine(PlayCoroutine());
+            return StartCoroutine(PlayCoroutine(onComplete));
         }
 
-        private IEnumerator PlayCoroutine()
+        private IEnumerator PlayCoroutine(Action onComplete = null)
         {
             InputUtil.PushActionMap("None");
-            dialogueUI.SetActive(true);
+            dialogueUI.gameObject.SetActive(true);
             string displayedText = string.Empty;
 
             foreach (string line in lines)
@@ -33,10 +36,25 @@ namespace DefaultNamespace
                 }
 
                 yield return new WaitForSeconds(linePause);
+                displayedText += '\n';
+                textDisplay.SetText(displayedText);
             }
 
-            dialogueUI.SetActive(false);
+            yield return new WaitForSeconds(finishPause);
+
+            float elapsed = 0;
+            float start = dialogueUI.alpha;
+
+            while (elapsed < fadeInTime)
+            {
+                dialogueUI.alpha = Mathf.Lerp(start, 0, elapsed / fadeInTime);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            dialogueUI.gameObject.SetActive(false);
             InputUtil.PopActionMap();
+            onComplete?.Invoke();
         }
     }
 }
