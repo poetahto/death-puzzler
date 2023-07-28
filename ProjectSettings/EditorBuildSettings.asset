@@ -6,18 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/boxes 2.unity
+    path: Assets/Scenes/movement 1.unity
+    guid: 2b1383153bcce4d4db3fa6cafc8db36f
+  - enabled: 1
+    path: Assets/Scenes/pushing 1.unity
+    guid: 34d1b586bba9c354bad0445e2fc7eb45
+  - enabled: 1
+    path: Assets/Scenes/pushing 2.unity
+    guid: 8f9e6bdd8fa169e458780a2fc8b6eb3f
+  - enabled: 1
+    path: Assets/Scenes/pushing 3.unity
     guid: 40feb0d4c8ba2de469e2c2a5f842c411
-  - enabled: 1
-    path: Assets/Scenes/boxes intro.unity
-    guid: 304030063e0ac264da1b277afcb3aedd
-  - enabled: 1
-    path: Assets/Scenes/boxes 1.unity
-    guid: 4a9a344be5f8b344b928d1dafcf25250
-  - enabled: 1
-    path: Assets/Scenes/boxes 1.5.unity
-    guid: 1bbaf854a8ce38440baf3c285de61357
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

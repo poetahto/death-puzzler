@@ -7,13 +7,13 @@ namespace DefaultNamespace
 {
     public class DialogueInstance : MonoBehaviour
     {
-        [SerializeField] private string[] lines;
         [SerializeField] private float characterPause;
         [SerializeField] private float linePause;
         [SerializeField] private float finishPause;
         [SerializeField] private CanvasGroup dialogueUI;
-        [SerializeField] private TMP_Text textDisplay;
         [SerializeField] private float fadeInTime;
+        [SerializeField] private TMP_Text textDisplay;
+        public string[] lines;
 
         public Coroutine Play(Action onComplete = null)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,12 @@ namespace DefaultNamespace
         {
             _spawners = FindObjectsByType<Egg>(FindObjectsSortMode.None).ToList();
             ResetSelection();
+
+            foreach (var controlledEntity in FindObjectsByType<ControlledEntity>(FindObjectsSortMode.None))
+            {
+                if (controlledEntity.TryGetComponent(out LivingEntity livingEntity))
+                    livingEntity.onDeath.AddListener(HandleEntityDeath);
+            }
         }
 
         public void HandleHatchBackward(InputAction.CallbackContext context)
@@ -65,6 +72,12 @@ namespace DefaultNamespace
         private void HandleEntityDeath(LivingEntity.DeathEvent eventData)
         {
             eventData.entity.onDeath.RemoveListener(HandleEntityDeath);
+            StartCoroutine(HandleEntityDeathCoroutine(eventData));
+        }
+
+        private IEnumerator HandleEntityDeathCoroutine(LivingEntity.DeathEvent eventData)
+        {
+            yield return new WaitForSeconds(1);
 
             if (_spawners.Count > 0)
                 FindAnyObjectByType<GameplayStateMachine>().TransitionToHatching();

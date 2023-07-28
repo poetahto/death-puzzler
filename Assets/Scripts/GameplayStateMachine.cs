@@ -61,9 +61,12 @@ namespace DefaultNamespace
         [SerializeField] private CinemachineVirtualCamera introCamera;
         [SerializeField] private bool startHatching;
         [SerializeField] private LevelTitle title;
+        [SerializeField] private LevelData data;
 
         public override void OnEnter()
         {
+            title.text.SetText(data.levelTitle);
+            introDialogue.lines = data.levelPreamble;
             Fsm.StartCoroutine(IntroCoroutine());
         }
 
@@ -73,10 +76,10 @@ namespace DefaultNamespace
             yield return introDialogue.Play();
             yield return new WaitForSeconds(0.5f);
             yield return title.Show();
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
             yield return title.Hide();
             introCamera.Priority = -1;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             if (startHatching)
                 Fsm.TransitionToHatching();

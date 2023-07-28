@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -7,6 +8,7 @@ namespace UI
     {
         [SerializeField] private float duration;
         [SerializeField] private CanvasGroup canvasGroup;
+        public TMP_Text text;
 
         public Coroutine Show() => StartCoroutine(SetAlphaCoroutine(1));
         public Coroutine Hide() => StartCoroutine(SetAlphaCoroutine(0));

@@ -8,7 +8,8 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            _remaining = FindObjectsByType<Egg>(FindObjectsSortMode.None).Length;
+            _remaining += FindObjectsByType<Egg>(FindObjectsSortMode.None).Length;
+            _remaining += FindObjectsByType<ControlledEntity>(FindObjectsSortMode.None).Length;
         }
 
         public void HandleEntityDeath()

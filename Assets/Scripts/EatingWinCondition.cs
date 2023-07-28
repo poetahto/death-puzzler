@@ -22,6 +22,9 @@ namespace DefaultNamespace
                 }
             }
 
+            if (_remaining == 1)
+                counter.gameObject.SetActive(false);
+
             counter.Max = _remaining;
         }
 

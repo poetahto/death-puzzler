@@ -13,7 +13,7 @@ namespace DefaultNamespace
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawLine(Position, Position + Normal);
+            // Gizmos.DrawLine(Position, Position + Normal);
         }
     }
 }
