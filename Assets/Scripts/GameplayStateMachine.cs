@@ -1,8 +1,7 @@
 ﻿using System;
+using Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 namespace DefaultNamespace
 {
@@ -17,7 +16,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            if (FindObjectsByType<Egg>(FindObjectsSortMode.None).Length > 0)
+            if (!FindAnyObjectByType<ControlledEntity>() &&FindAnyObjectByType<Egg>())
                 TransitionToHatching();
 
             else TransitionToPlaying();
@@ -88,11 +87,13 @@ namespace DefaultNamespace
     {
         [SerializeField] private string hatchingActionMap;
         [SerializeField] private GameObject hatchingUI;
+        [SerializeField] private HatchingController hatchingController;
 
         public override void OnEnter()
         {
             hatchingUI.SetActive(true);
             InputUtil.PushActionMap(hatchingActionMap);
+            hatchingController.SelectedEgg.Select();
         }
 
         public override void OnExit()

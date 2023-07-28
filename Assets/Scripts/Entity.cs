@@ -17,6 +17,8 @@ namespace DefaultNamespace
         [Tooltip("How quickly the view should move to follow the logic.")]
         private float speed = 15f;
 
+        private Vector3 _angles;
+
         // === Events ===
 
         public UnityEvent<SlideEvent> onSlide;
@@ -33,7 +35,8 @@ namespace DefaultNamespace
         public PuzzleWorldGrid World { get; private set; }
         public Vector3 TargetViewPosition { get; set; }
         public Quaternion TargetViewRotation { get; set; }
-        private Vector3 _angles;
+        public Transform View => view;
+        public Transform Logic => logic;
 
         // === Logic ===
 

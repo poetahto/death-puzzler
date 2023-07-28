@@ -16,10 +16,10 @@ namespace UI
         {
             if (entity.IsGrabbing)
             {
-                TryUpdateSprite(Vector3Int.up, up);
-                TryUpdateSprite(Vector3Int.down, down);
-                TryUpdateSprite(Vector3Int.left, left);
-                TryUpdateSprite(Vector3Int.right, right);
+                TryUpdateSprite(Vector3Int.forward, down);
+                TryUpdateSprite(Vector3Int.back, up);
+                TryUpdateSprite(Vector3Int.left, right);
+                TryUpdateSprite(Vector3Int.right, left);
             }
 
             else spriteRenderer.sprite = null;

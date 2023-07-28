@@ -20,7 +20,14 @@ namespace DefaultNamespace
         [SerializeField]
         private bool oneShot;
 
+        [SerializeField]
+        private bool destroyOnInteract;
+
+        [SerializeField]
+        private bool playerOnly = true;
+
         public UnityEvent<InteractEvent> onInteract = new UnityEvent<InteractEvent>();
+
 
         private bool _isUsed;
 
@@ -39,6 +46,10 @@ namespace DefaultNamespace
 
                 _isUsed = true;
                 onInteract.Invoke(eventData);
+
+                if (destroyOnInteract)
+                    Entity.World.Delete(Entity.Position);
+
                 return true;
             }
 
@@ -48,6 +59,12 @@ namespace DefaultNamespace
         // todo: this code overlaps a lot w/ stairs
         public bool CanEntityInteract(Entity user)
         {
+            if (!user.IsAdjacent(Entity))
+                return false;
+
+            if (playerOnly && !user.CompareTag("Player"))
+                return false;
+
             foreach (Vector3Int entrance in interactPositions)
             {
                 var worldPos = transform.localToWorldMatrix.MultiplyPoint3x4(entrance);
@@ -64,7 +81,7 @@ namespace DefaultNamespace
             foreach (var entrance in interactPositions)
             {
                 Gizmos.color = gizmoColor;
-                Gizmos.DrawCube(transform.localToWorldMatrix.MultiplyPoint3x4(entrance), Vector3.one);
+                Gizmos.DrawWireCube(transform.localToWorldMatrix.MultiplyPoint3x4(entrance), Vector3.one);
             }
         }
 

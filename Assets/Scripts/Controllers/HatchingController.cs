@@ -9,40 +9,57 @@ namespace DefaultNamespace
     {
         private List<Egg> _spawners;
         public int SpawnIndex { get; private set; }
+        public Egg SelectedEgg { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             _spawners = FindObjectsByType<Egg>(FindObjectsSortMode.None).ToList();
+            ResetSelection();
         }
 
         public void HandleHatchBackward(InputAction.CallbackContext context)
         {
             if (context.started)
-                SpawnIndex = Repeat(SpawnIndex - 1, _spawners.Count);
+                UpdateSelectedEntity(-1);
         }
 
         public void HandleHatchForward(InputAction.CallbackContext context)
         {
             if (context.started)
-                SpawnIndex = Repeat(SpawnIndex + 1, _spawners.Count);
+                UpdateSelectedEntity(1);
         }
 
         public void HandleHatchSelect(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                Egg egg = _spawners[SpawnIndex];
-                var instance = egg.Hatch();
-                _spawners.Remove(egg);
-                SpawnIndex = 0;
+                var instance = SelectedEgg.Hatch();
+                _spawners.Remove(SelectedEgg);
+                ResetSelection();
 
                 if (instance.TryGetComponent(out LivingEntity livingEntity))
-                {
                     livingEntity.onDeath.AddListener(HandleEntityDeath);
-                }
 
                 FindAnyObjectByType<GameplayStateMachine>().TransitionToPlaying();
             }
+        }
+
+        private void ResetSelection()
+        {
+            SpawnIndex = 0;
+
+            if (_spawners.Count > 0)
+                SelectedEgg = _spawners[0];
+        }
+
+        private void UpdateSelectedEntity(int offset)
+        {
+            if (SelectedEgg != null)
+                SelectedEgg.Deselect();
+
+            SpawnIndex = Repeat(SpawnIndex + offset, _spawners.Count);
+            SelectedEgg = _spawners[SpawnIndex];
+            SelectedEgg.Select();
         }
 
         private void HandleEntityDeath(LivingEntity.DeathEvent eventData)

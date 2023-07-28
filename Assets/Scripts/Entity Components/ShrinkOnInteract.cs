@@ -6,7 +6,7 @@ namespace DefaultNamespace
     public class ShrinkOnInteract : InteractableEffect
     {
         [SerializeField] private float duration = 1;
-        
+
         protected override void OnInteract(Interactable.InteractEvent eventData)
         {
             StartCoroutine(ShrinkCoroutine());
@@ -23,7 +23,7 @@ namespace DefaultNamespace
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            
+
             transform.localScale = Vector3.zero;
         }
     }
