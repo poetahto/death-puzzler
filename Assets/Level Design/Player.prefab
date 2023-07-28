@@ -291,6 +291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facingTransform: {fileID: 8516855189925543631}
   movementAnimator: {fileID: 2143805084800844136}
+  boostAmount: 1.5
+  boostSpeed: 10
+  boostDecay: 5
 --- !u!114 &8000280047945664096
 MonoBehaviour:
   m_ObjectHideFlags: 0

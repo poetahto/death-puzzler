@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -11,13 +10,21 @@ namespace DefaultNamespace
         [SerializeField]
         private Animator movementAnimator;
 
-        private Vector3Int _grabDirection = Vector3Int.forward;
-        private bool _isGrabbing;
+        [SerializeField] private float boostAmount = 0.1f;
+        [SerializeField] private float boostSpeed = 5;
+        [SerializeField] private float boostDecay = 1;
+
         private Entity _grabbedEntity;
+        private Vector3 _baseScale;
+        private float _boost;
+
+        public Vector3Int Direction { get; private set; } = Vector3Int.forward;
+        public bool IsGrabbing { get; private set; }
 
         private void Start()
         {
             Entity.onMove.AddListener(CheckGrounded);
+            _baseScale = facingTransform.localScale;
         }
 
         private void CheckGrounded(Entity.MoveEvent eventData)
@@ -25,21 +32,31 @@ namespace DefaultNamespace
             bool isGrounded = Entity.IsGrounded();
             movementAnimator.SetBool("isGrounded", isGrounded);
 
-            if (_isGrabbing && !isGrounded)
+            if (IsGrabbing && !isGrounded)
                 HandleDrop();
         }
+
+        public bool test;
 
         private void Update()
         {
             var t = 15 * Time.deltaTime;
-            facingTransform.localRotation = Quaternion.Lerp(facingTransform.localRotation, Quaternion.LookRotation(-_grabDirection), t);
+            Vector3Int dir;
+            if (test)
+            {
+                dir = IsGrabbing ? -Direction : Vector3Int.forward;
+            }
+            else dir = -Direction;
+            facingTransform.localRotation = Quaternion.Lerp(facingTransform.localRotation, Quaternion.LookRotation(dir), t);
+            facingTransform.localScale = Vector3.Lerp(facingTransform.localScale, _baseScale * _boost, boostSpeed * Time.deltaTime);
+            _boost  = Mathf.Max(_boost - boostDecay * Time.deltaTime, 1);
         }
 
         public void HandleMove(Vector3Int offset)
         {
             if (Entity.IsGrounded() && enabled)
             {
-                if (_isGrabbing)
+                if (IsGrabbing)
                 {
                     Vector3 gePos = _grabbedEntity.Position;
                     Vector3 ePos = Entity.Position;
@@ -52,29 +69,31 @@ namespace DefaultNamespace
                 }
                 else
                 {
-                    _grabDirection = offset;
+                    Direction = offset;
                     Entity.Slide(offset);
                 }
+
+                _boost = boostAmount;
             }
         }
 
         public void HandleGrab()
         {
-            if (_isGrabbing)
+            if (IsGrabbing)
                 return;
 
             for (int i = 0; i < 4; i++)
             {
-                _grabDirection = Vector3Int.RoundToInt(Quaternion.Euler(0, 90, 0) * _grabDirection);
+                Direction = Vector3Int.RoundToInt(Quaternion.Euler(0, 90, 0) * Direction);
 
-                if (TryGrabNeighbor(_grabDirection, out _grabbedEntity))
+                if (TryGrabNeighbor(Direction, out _grabbedEntity))
                 {
-                    _isGrabbing = true;
+                    IsGrabbing = true;
                     break;
                 }
             }
 
-            movementAnimator.SetBool("grabbing", _isGrabbing);
+            movementAnimator.SetBool("grabbing", IsGrabbing);
         }
 
         private bool TryGrabNeighbor(Vector3Int direction, out Entity entity)
@@ -98,7 +117,7 @@ namespace DefaultNamespace
         public void HandleDrop()
         {
             movementAnimator.SetBool("grabbing", false);
-            _isGrabbing = false;
+            IsGrabbing = false;
         }
     }
 }

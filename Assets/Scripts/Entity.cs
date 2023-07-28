@@ -130,8 +130,12 @@ namespace DefaultNamespace
                 }
                 else Move(Position + offset);
             }
+
             else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
                 Move(Position + offset);
+
+            else if (targetEntity.IsInteractable())
+                targetEntity.TryInteract(this);
 
             // No matter how we slide, always update our view transform to look correct.
             UpdateView();
@@ -201,6 +205,23 @@ namespace DefaultNamespace
             public Entity Entity;
             public Vector3Int From;
             public Vector3Int To;
+        }
+
+        // === Util ===
+        [ContextMenu("Generate Transforms")]
+        private void GenerateTransforms()
+        {
+            if (view == null)
+            {
+                view = new GameObject("View").transform;
+                view.SetParent(transform, false);
+            }
+
+            if (logic == null)
+            {
+                logic = new GameObject("Logic").transform;
+                logic.SetParent(transform, false);
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ namespace DefaultNamespace
 
         private Vector3Int _position;
 
+        public virtual Color GizmoColor => Color.white;
+
         private void Awake()
         {
             _position = Vector3Int.RoundToInt(transform.position);
@@ -42,6 +44,12 @@ namespace DefaultNamespace
                 if (oneShot)
                     enabled = false;
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = GizmoColor;
+            Gizmos.DrawWireCube(transform.position, Vector3.one);
         }
 
         protected abstract void OnPuzzleTriggerEnter(Entity entity, Vector3Int from);
