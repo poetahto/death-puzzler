@@ -1514,8 +1514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5b5fc3deff4a9bba33bd025f2f8ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: boxes 2
-  levelTitle: Obstacles
+  nextScene: death 3
+  levelTitle: 'VI: Stepping Stone'
   levelPreamble: []
 --- !u!1 &7361275263277591023
 GameObject:
@@ -1726,6 +1726,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3149717070217997398, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3716470224811304081, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
+      propertyPath: m_text
+      value: 'Game Over
+
+        <i><color=grey><size=70%>Press enter to restart
+        level</i>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576682834698650211, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6607892393357080765, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1809,13 +1824,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1125077937872805135, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1742938614512387522}
   m_SourcePrefab: {fileID: 100100000, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
 --- !u!1 &885743415719242386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1125077937872805135, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
   m_PrefabInstance: {fileID: 276934672152246173}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742938614512387522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885743415719242386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bc7c20c5ea42fabd87fd091ba849da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6369265812927303456 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6607892393357080765, guid: 1c902eb6fead04244b8b0efd1b50214c, type: 3}
@@ -1954,6 +1984,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1551000370403932303, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
+      propertyPath: m_text
+      value: 'Level Complete
+
+        <i><color=grey><size=70%>Press enter to continue</i>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617217085572928975, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7473533037968966336, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2034,16 +2074,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9029960612683325053, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9261136628396441, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5295826956146116997}
   m_SourcePrefab: {fileID: 100100000, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
 --- !u!1 &1447032631346729961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9261136628396441, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}
   m_PrefabInstance: {fileID: 1455791287912473200}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5295826956146116997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447032631346729961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8a3244ce9c4d379c709fd4164b4a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8323585343591342256 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7473533037968966336, guid: 21942ecefe02cf54098d67c43eaed40e, type: 3}

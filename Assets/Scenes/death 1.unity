@@ -4091,8 +4091,12 @@ PrefabInstance:
       value: -0.7096329
       objectReference: {fileID: 0}
     - target: {fileID: 1260611902678194481, guid: 748505882706b44419d3047ded3f03b9, type: 3}
+      propertyPath: nextScene
+      value: death 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260611902678194481, guid: 748505882706b44419d3047ded3f03b9, type: 3}
       propertyPath: levelTitle
-      value: Long Way Down
+      value: 'V: Long Way Down'
       objectReference: {fileID: 0}
     - target: {fileID: 4794579802107696855, guid: 748505882706b44419d3047ded3f03b9, type: 3}
       propertyPath: m_AnchoredPosition.x

@@ -5,11 +5,13 @@ namespace DefaultNamespace.UI
 {
     public class NextLevelLogic : MonoBehaviour
     {
-        public void Run()
+        private void Update()
         {
-            // todo: transitions
-            var levelData = FindAnyObjectByType<LevelData>();
-            SceneManager.LoadScene(levelData.nextScene);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                var levelData = FindAnyObjectByType<LevelData>();
+                SceneManager.LoadScene(levelData.nextScene);
+            }
         }
     }
 }

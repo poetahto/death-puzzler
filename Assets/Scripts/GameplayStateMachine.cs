@@ -76,7 +76,7 @@ namespace DefaultNamespace
             yield return introDialogue.Play();
             yield return new WaitForSeconds(0.5f);
             yield return title.Show();
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             yield return title.Hide();
             introCamera.Priority = -1;
             yield return new WaitForSeconds(1);

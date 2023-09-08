@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class Stairs : MonoBehaviour
+    public class Stairs : EntityBehaviour
     {
         [SerializeField] private Vector3Int[] entrancePositions = Array.Empty<Vector3Int>();
         [SerializeField] private Color gizmoColor = Color.red;
@@ -12,8 +12,7 @@ namespace DefaultNamespace
         {
             foreach (var entrance in entrancePositions)
             {
-
-                if (entity.Position == transform.localToWorldMatrix.MultiplyPoint3x4(entrance))
+                if (entity.Position == Entity.Logic.localToWorldMatrix.MultiplyPoint3x4(entrance))
                     return true;
             }
 

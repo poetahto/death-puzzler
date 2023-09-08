@@ -62,12 +62,15 @@ namespace DefaultNamespace
             if (!user.IsAdjacent(Entity))
                 return false;
 
+            if (Entity.IsFalling())
+                return false;
+
             if (playerOnly && !user.CompareTag("Player"))
                 return false;
 
             foreach (Vector3Int entrance in interactPositions)
             {
-                var worldPos = transform.localToWorldMatrix.MultiplyPoint3x4(entrance);
+                var worldPos = Entity.Logic.localToWorldMatrix.MultiplyPoint3x4(entrance);
 
                 if (user.Position == worldPos)
                     return true;

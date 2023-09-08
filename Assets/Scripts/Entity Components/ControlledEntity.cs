@@ -100,6 +100,9 @@ namespace DefaultNamespace
         {
             entity = Entity.GetNeighbor(direction);
 
+            if (entity == Entity)
+                return false;
+
             if (entity.IsPushable())
                 return true;
 

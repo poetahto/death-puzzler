@@ -137,7 +137,7 @@ namespace DefaultNamespace
             else if (targetEntity.IsPushable() && targetEntity.Slide(offset))
                 Move(Position + offset);
 
-            else if (targetEntity.IsInteractable())
+            if (targetEntity.IsInteractable())
                 targetEntity.TryInteract(this);
 
             // No matter how we slide, always update our view transform to look correct.

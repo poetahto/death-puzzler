@@ -4,9 +4,10 @@ namespace DefaultNamespace.UI
 {
     public class RestartLevelLogic : MonoBehaviour
     {
-        public void Run()
+        private void Update()
         {
-            FindAnyObjectByType<GameplayStateMachine>().Restart();
+            if (Input.GetKeyDown(KeyCode.Return))
+                FindAnyObjectByType<GameplayStateMachine>().Restart();
         }
     }
 }

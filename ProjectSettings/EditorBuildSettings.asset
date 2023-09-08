@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/pushing 3.unity
     guid: 40feb0d4c8ba2de469e2c2a5f842c411
+  - enabled: 1
+    path: Assets/Scenes/death 1.unity
+    guid: 917a351d6a045174f94c1ea7ace3d57c
+  - enabled: 1
+    path: Assets/Scenes/death 2.unity
+    guid: bff63d2a35bd92348b69dd580cb5ba24
+  - enabled: 1
+    path: Assets/Scenes/death 3.unity
+    guid: 9d0a1dabcb5bcb34fb929aa26a8a472a
+  - enabled: 1
+    path: Assets/Scenes/death 4.unity
+    guid: b260624460b03d841b5fbd79adefae6f
   m_configObjects: {}
